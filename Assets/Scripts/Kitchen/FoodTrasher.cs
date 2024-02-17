@@ -8,6 +8,7 @@ namespace CookingPrototype.Kitchen {
 	[RequireComponent(typeof(FoodPlace))]
 	public sealed class FoodTrasher : MonoBehaviour {
 
+		[SerializeField] private float _doubleTapTimeThreshold = 0.3f;
 		FoodPlace _place = null;
 		float     _timer = 0f;
 
@@ -21,7 +22,13 @@ namespace CookingPrototype.Kitchen {
 		/// </summary>
 		[UsedImplicitly]
 		public void TryTrashFood() {
-			throw new NotImplementedException("TryTrashFood: this feature is not implemented");
+			if ( _place != null && !_place.IsFree && _place.CurFood != null && _place.CurFood.CurStatus == Food.FoodStatus.Overcooked ) {
+
+				if ( Time.time - _timer < _doubleTapTimeThreshold ) {
+					_place.FreePlace();
+				}
+				_timer = Time.time;
+			}
 		}
 	}
 }
