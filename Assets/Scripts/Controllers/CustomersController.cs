@@ -52,7 +52,7 @@ namespace CookingPrototype.Controllers {
 		}
 
 		void Start() {
-			Init();
+			//Init();
 		}
 
 		void Update() {
